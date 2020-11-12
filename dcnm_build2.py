@@ -6,7 +6,7 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
-cred_encode = 'YWRtaW46QzFzYzBfMTIz'
+cred_encode = 'ENTER BASE64 CREDS'
 dcnm_server = "10.91.86.220"
 
 
