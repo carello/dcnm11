@@ -1,6 +1,7 @@
 import requests
 import json
 import time
+import sys
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
@@ -11,7 +12,7 @@ dcnm_server = "10.91.86.220"
 
 #########################
 # L3 VRF Variable
-vrf_Vlan_Name = "VRF-001"
+vrf_Vlan_Name = "VRF-501"
 vrf_Segment_Id = "50000"
 vrf_Name = "MyVRF_50000"
 vrf_Vlan_Id = "2000"
@@ -33,6 +34,12 @@ l2_segment_Id = "30000"
 l2_network_Name = "MyNetwork_30000"
 switch1_switchPorts = "Ethernet1/6"
 switch2_switchPorts = "Ethernet1/6"
+
+
+def status_check(resp):
+    if resp.status_code != 200:
+        print("Error...")
+        sys.exit()
 
 
 def login(creds):
@@ -101,6 +108,7 @@ def create_vrf(token):
     }
     response = requests.request("POST", url, headers=headers, data=json.dumps(payload), verify=False)
     print(response)
+    status_check(response)
 
 
 def attach_vrf(token):
@@ -141,6 +149,7 @@ def attach_vrf(token):
 
     response = requests.request("POST", url, headers=headers, data=json.dumps(payload), verify=False)
     print(response)
+    status_check(response)
 
 
 def deploy_vrf(token):
@@ -155,6 +164,7 @@ def deploy_vrf(token):
 
     response = requests.request("POST", url, headers=headers, data=json.dumps(payload), verify=False)
     print(response)
+    status_check(response)
 
 
 def create_network(token):
@@ -206,6 +216,7 @@ def create_network(token):
 
     response = requests.request("POST", url, headers=headers, data=json.dumps(payload), verify=False)
     print(response)
+    status_check(response)
 
 
 def attach_network(token):
@@ -254,6 +265,7 @@ def attach_network(token):
 
     response = requests.request("POST", url, headers=headers, data=json.dumps(payload), verify=False)
     print(response)
+    status_check(response)
 
 
 def deploy_network(token):
@@ -268,11 +280,12 @@ def deploy_network(token):
 
     response = requests.request("POST", url, headers=headers, data=json.dumps(payload), verify=False)
     print(response)
+    status_check(response)
 
 
 def main():
     logon = login(cred_encode)
-    time.sleep(5)
+    time.sleep(4)
 
     tok = get_token(logon)
     time.sleep(3)
